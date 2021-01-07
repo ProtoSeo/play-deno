@@ -53,6 +53,16 @@ router.get('/',(context)=>{ //context에 response와 request가 담겨져 있다
         context.response.status = 201;
         context.response.body = book;
     }
+}).get("/book/:id",async (context:any)=>{
+    //books안에 있는 책들중에 param의 값과 같은 id를 가진 책 찾기
+    const book: Book|undefined = books.find((b)=> b.id === context.params.id)
+    if(book){
+        context.response.body = book;
+        context.response.status = 200;
+    }else{
+        context.response.body = "책을 찾지 못했습니다.";
+        context.response.status = 404;
+    }
 })
 
 console.log("Server is listening on port 5000");
